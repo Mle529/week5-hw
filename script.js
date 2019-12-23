@@ -52,6 +52,7 @@ for (var i = 0; i < 9; i++) {
 
     var userInput = $("<textarea class = 'w-100 h-100' id = 'textInput'>")
     col2.append(userInput);
+    userInput.text(userInfo[i]);
     userInput.attr("class", currentHour);
 
     var saveButton = $("<button class = 'saveBtn icon w-100 h-100'>")
@@ -69,6 +70,7 @@ for (var i = 0; i < 9; i++) {
 
 }
 
+// Save button click event. 
 $('.saveBtn').on("click", function () {
     textVal = $(this).parent().siblings('.timeblock').children().val();
     rowVal = $(this).parent().parent().attr('rowData');
