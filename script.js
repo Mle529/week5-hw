@@ -12,19 +12,6 @@ if (storeInfo != null) {
 }
 
 
-$('.saveBtn').on("click", function () {
-    textVal = $(this).parent().siblings('timeblock').children().val();
-    rowVal = $(this).parent().parent().attr('rowdata');
-
-    console.log(textVal);
-    console.log(rowVal);
-
-    userInfo[rowVal] = textVal
-
-    localStorage.setItem("userPlanner", userInfo);
-});
-
-
 //For loop to generate 9 different timeblocks
 for (var i = 0; i < 9; i++) {
 
@@ -81,3 +68,15 @@ for (var i = 0; i < 9; i++) {
     newRow.attr('rowData', i);
 
 }
+
+$('.saveBtn').on("click", function () {
+    textVal = $(this).parent().siblings('.timeblock').children().val();
+    rowVal = $(this).parent().parent().attr('rowData');
+
+    console.log(textVal);
+    console.log(rowVal);
+
+    userInfo[rowVal] = textVal
+
+    localStorage.setItem("userPlanner", userInfo);
+});
