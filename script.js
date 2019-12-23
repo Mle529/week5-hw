@@ -3,11 +3,26 @@ time.textContent = moment().format("MMMM Do YYYY");
 
 var currentTime = moment().format("HH");
 
-var userDataStorage = localStorage.getItem("userPlanner");
-if (userDataStorage != null) {
+// Save button and local storage 
+var userInfo = ["", "", "", "", "", "", "", "", ""];
 
+var storeInfo = localStorage.getItem("userPlanner");
+if (storeInfo != null) {
+    userInfo = storeInfo.split(",");
 }
 
+
+$('.saveBtn').on("click", function () {
+    textVal = $(this).parent().siblings('timeblock').children().val();
+    rowVal = $(this).parent().parent().attr('rowdata');
+
+    console.log(textVal);
+    console.log(rowVal);
+
+    userInfo[rowVal] = textVal
+
+    localStorage.setItem("userPlanner", userInfo);
+});
 
 
 //For loop to generate 9 different timeblocks
@@ -32,8 +47,8 @@ for (var i = 0; i < 9; i++) {
     if (timeHour < currentTime) {
         currentHour = "past";
     }
-    else if (timeHour === currentTime) {
-        currentHour = "present";
+    else if (timeHour == currentTime) {
+        currentHour = 'present';
     }
     else {
         currentHour = "future";
@@ -48,7 +63,7 @@ for (var i = 0; i < 9; i++) {
 
     col1.text(formatTime);
 
-    var userInput = $("<textarea class = 'w-100 h-100'>")
+    var userInput = $("<textarea class = 'w-100 h-100' id = 'textInput'>")
     col2.append(userInput);
     userInput.attr("class", currentHour);
 
@@ -62,8 +77,7 @@ for (var i = 0; i < 9; i++) {
     newRow.append(col1, col2, col3);
     $(".container").append(newRow);
 
-}
+    // creating an id to store the text into an array
+    newRow.attr('rowData', i);
 
-$(".saveBtn").on("click", function () {
-    localStorage.setItem("userInput", JSON.stringify(userPlanner));
-});
+}
